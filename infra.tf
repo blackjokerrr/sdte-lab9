@@ -1,37 +1,50 @@
-name: Build docker image and push to ECR
-
-on:
-  push:
-    branches:
-      - "main"
-      - "master"
-
-jobs:
-  build-docker:
-    name: Build docker image from source
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout the repo
-        uses: actions/checkout@v2
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ap-southeast-1
-      - name: Login to Amazon ECR
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v1
-      - name: Build, tag, and push image to Amazon ECR
-        id: build-image
-        env:
-          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          ECR_REPOSITORY: lab9_image_repo
-          IMAGE_TAG: ${{ github.sha }}
-        run: |
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f src/Dockerfile src
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-          docker tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:latest
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
-          echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
-
+{
+    "version": 3,
+    "serial": 2,
+    "lineage": "08434f3f-2f01-03a5-3a8d-1bfa186122b2",
+    "backend": {
+        "type": "s3",
+        "config": {
+            "access_key": null,
+            "acl": null,
+            "assume_role_policy": null,
+            "bucket": "lab9-61070221",
+            "dynamodb_endpoint": null,
+            "dynamodb_table": null,
+            "encrypt": true,
+            "endpoint": null,
+            "external_id": null,
+            "force_path_style": null,
+            "iam_endpoint": null,
+            "key": "infra-state",
+            "kms_key_id": null,
+            "lock_table": null,
+            "max_retries": null,
+            "profile": null,
+            "region": "us-east-1",
+            "role_arn": null,
+            "secret_key": null,
+            "session_name": null,
+            "shared_credentials_file": null,
+            "skip_credentials_validation": null,
+            "skip_get_ec2_platforms": null,
+            "skip_metadata_api_check": null,
+            "skip_region_validation": null,
+            "skip_requesting_account_id": null,
+            "sts_endpoint": null,
+            "token": null,
+            "workspace_key_prefix": null
+        },
+        "hash": 3397719781
+    },
+    "modules": [
+        {
+            "path": [
+                "root"
+            ],
+            "outputs": {},
+            "resources": {},
+            "depends_on": []
+        }
+    ]
+}
