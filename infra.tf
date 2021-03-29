@@ -27,7 +27,7 @@ resource "aws_ecs_cluster" "lab9_cluster" {
 
 resource "aws_ecs_task_definition" "lab9_task" {
   family                   = "lab9-task"
-  container_definitions    = <<DEFINITION
+  container_definitions    = DEFINITION
   [
     {
       "name": "lab9-container",
