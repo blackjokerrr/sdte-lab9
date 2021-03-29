@@ -158,7 +158,6 @@ resource "aws_ecs_service" "lab9_service" {
     assign_public_ip = true
   }
 }
-=======
 # Target Provider is AWS at region ap-southeast-1 (Singapore)
 provider "aws" {
   region  = "ap-southeast-1"
@@ -167,5 +166,4 @@ provider "aws" {
 # ECR
 resource "aws_ecr_repository" "lab9_image_repo" {
   name = "lab9_image_repo"
->>>>>>> First comiit
 }
